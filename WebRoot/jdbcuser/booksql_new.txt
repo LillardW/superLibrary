@@ -1,0 +1,103 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.2.1
+-- http://www.phpmyadmin.net
+--
+-- 主机: localhost
+-- 生成日期: 2013 年 04 月 05 日 06:39
+-- 服务器版本: 5.0.45
+-- PHP 版本: 5.2.5
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- 数据库: `bookdb`
+--
+CREATE DATABASE `bookdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `bookdb`;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `book`
+--
+
+CREATE TABLE `book` (
+  `BookID` varchar(20) NOT NULL,
+  `BookName` varchar(100) NOT NULL,
+  `Author` varchar(50) NOT NULL,
+  `Press` varchar(50) default NULL,
+  `PressDate` datetime NOT NULL,
+  `Price` float default NULL,
+  `image` varchar(50) default NULL,
+  PRIMARY KEY  (`BookID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 导出表中的数据 `book`
+--
+
+INSERT INTO `book` (`BookID`, `BookName`, `Author`, `Press`, `PressDate`, `Price`, `image`) VALUES
+('B001', 'java高级程序设计基础', '赵卓钧', '交大', '2012-11-20 10:55:08', 36, 'jdbc\\book_image\\20061.gif'),
+('B002', '数据结构', '张三', '交大', '2002-06-19 10:56:36', 25, 'jdbc\\book_image\\20062.gif'),
+('B003', 'java应用设计', '周瑞华', '交大', '2010-11-10 10:58:18', 28, 'jdbc\\book_image\\20063.jpg'),
+('B004', 'web程序设计', '张立国', '清华大学出版社', '2009-11-13 10:59:27', 33, 'jdbc\\book_image\\20064.jpg'),
+('B006', 'Java DataStructure', 'Li Long', 'sspu', '2010-04-09 20:38:16', 21, 'jdbc\\book_image\\20066.jpg'),
+('B007', '电子商务概论', '朱林', 'sspu', '2010-11-09 20:40:13', 32, 'jdbc\\book_image\\20067.jpg'),
+('B008', 'WEBINIT', 'LI Long', 'sspu', '2011-08-15 00:00:00', 56, 'jdbc\\book_image\\20068.jpg'),
+('B010', 'Java Swing', 'YinFeng Dong', 'sspu', '2012-02-03 10:00:23', 67, 'jdbc\\book_image\\20065.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `borrow`
+--
+
+CREATE TABLE `borrow` (
+  `BorrowID` int(11) NOT NULL auto_increment,
+  `BookID` varchar(20) NOT NULL,
+  `ReaderID` varchar(20) NOT NULL,
+  `BorrowDate` datetime NOT NULL,
+  `ReturnDate` datetime default NULL,
+  `Memo` text,
+  PRIMARY KEY  (`BorrowID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- 导出表中的数据 `borrow`
+--
+
+INSERT INTO `borrow` (`BorrowID`, `BookID`, `ReaderID`, `BorrowDate`, `ReturnDate`, `Memo`) VALUES
+(1, 'B001', 'R001', '2011-11-15 09:45:00', '2012-12-13 00:00:00', '信用等级：3'),
+(2, 'B002', 'R002', '2011-06-25 00:00:00', '2012-04-11 00:00:00', ''),
+(3, 'B004', 'R002', '2012-02-02 23:19:40', '2012-04-11 23:19:46', '信用等级：3'),
+(4, 'B002', 'R001', '2012-09-01 16:19:18', '2012-12-03 16:19:27', NULL),
+(5, 'B003', 'R001', '2012-09-01 16:19:18', '2012-12-03 16:19:27', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `reader`
+--
+
+CREATE TABLE `reader` (
+  `ReaderID` varchar(20) NOT NULL,
+  `ReaderName` varchar(50) default NULL,
+  `Password` varchar(20) NOT NULL,
+  `Sex` char(2) default NULL,
+  `Phone` varchar(20) default NULL,
+  `Address` varchar(20) default NULL,
+  `Limited` varchar(1) NOT NULL,
+  PRIMARY KEY  (`ReaderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 导出表中的数据 `reader`
+--
+
+INSERT INTO `reader` (`ReaderID`, `ReaderName`, `Password`, `Sex`, `Phone`, `Address`, `Limited`) VALUES
+('admin', 'admin', 'admin', '女', '111111111', '1111111', '1'),
+('R001', '张红', '111111', '女', '15325684598', 'ZhuHai people road 3', '0'),
+('R002', '成成', '222222', '男', '13845682651', 'ShangHai people road', '0'),
+('R003', '郭溪', '333333', '女', '15685426512', 'ShangHai jinhai road', '0'),
+('R004', '王浩', '444444', '男', '15682554569', 'ShangHai minyao road', '0'),
+('R005', '金俊武', '555555', '男', '15986452135', 'ShangHai nanjing roa', '0');
